@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleIdentifier</key>
+  <string>com.tap.speech-recognizer</string>
+  <key>CFBundleName</key>
+  <string>Tap Speech Recognizer</string>
+  <key>NSSpeechRecognitionUsageDescription</key>
+  <string>Tap uses Speech Recognition to turn your voice into text.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Tap uses the microphone for voice dictation.</string>
+</dict>
+</plist>
