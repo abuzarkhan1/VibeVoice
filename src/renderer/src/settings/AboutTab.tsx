@@ -1,15 +1,14 @@
 import React from 'react'
 import { GitBranch, Mail, Globe, Cpu, ShieldCheck, Layers } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import logoImg from '../assets/logo.png'
 
 export function AboutTab(): React.JSX.Element {
   return (
     <div className="p-8 max-w-2xl space-y-6">
       <header>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-card border border-border grid place-items-center text-foreground font-bold text-lg">
-            V
-          </div>
+          <img src={logoImg} alt="VibeVoice Logo" className="w-10 h-10 rounded-xl object-contain border border-border bg-black" />
           <div>
             <h2 className="text-xl font-semibold tracking-tight text-foreground">VibeVoice</h2>
             <p className="text-xs text-muted-foreground">Version 0.1.0 · macOS AI Voice Launcher</p>
