@@ -10,12 +10,17 @@ export function showSettingsWindow(): void {
     win.focus()
     return
   }
+  const iconPath = app.isPackaged
+    ? join(process.resourcesPath, 'icon.png')
+    : join(app.getAppPath(), 'resources/icon.png')
+
   win = new BrowserWindow({
     width: 880,
     height: 640,
     minWidth: 720,
     minHeight: 520,
     title: 'VibeVoice Settings',
+    icon: iconPath,
     backgroundColor: '#0a0d11',
     show: false,
     autoHideMenuBar: true,
@@ -28,7 +33,12 @@ export function showSettingsWindow(): void {
   })
 
   win.once('ready-to-show', () => {
-    if (process.platform === 'darwin') app.dock?.show()
+    if (process.platform === 'darwin' && app.dock) {
+      try {
+        app.dock.setIcon(iconPath)
+      } catch {}
+      app.dock.show()
+    }
     win?.show()
   })
 

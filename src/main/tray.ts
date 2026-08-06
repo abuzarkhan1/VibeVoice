@@ -12,8 +12,7 @@ function trayIcon(): Electron.NativeImage {
   if (image.isEmpty()) {
     return nativeImage.createEmpty()
   }
-  image.setTemplateImage(true)
-  return image
+  return image.resize({ width: 18, height: 18 })
 }
 
 export function setOpenSettingsHandler(fn: () => void): void {
