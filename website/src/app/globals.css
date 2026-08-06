@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens (Obsidian Dark System) ───────────────────── */
+:root {
+  --bg: #08080a;
+  --fg: #f0f0f4;
+  --accent: #ffffff;
+  --muted: #a1a1aa;
+  --border: rgba(255, 255, 255, 0.1);
+
+  --background: #08080a;
+  --foreground: #f0f0f4;
+}
+
+/* ─── Base Layer ────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #08080a;
+    color: #f0f0f4;
+  }
+
+  body {
+    background-color: #08080a;
+    color: #f0f0f4;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+
+  /* Thin zinc scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #08080a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #52525b;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3f3f46 #08080a;
+  }
+}
+
+/* ─── Component Layer ───────────────────────────────────────── */
+@layer components {
+  /* Door buttons (.btn-door) — Bold, high-contrast, non-thin */
+  .btn-door {
+    @apply inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-white text-black font-extrabold text-base rounded-full hover:bg-zinc-200 transition-all duration-200 cursor-pointer select-none no-underline active:scale-[0.98] shadow-2xl shadow-white/20 tracking-wide;
+  }
+
+  /* Door buttons alt (.btn-door-alt) */
+  .btn-door-alt {
+    @apply inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-zinc-900 border border-white/25 text-white font-bold text-base rounded-full hover:bg-zinc-800 hover:border-white/50 transition-all duration-200 cursor-pointer select-none no-underline active:scale-[0.98] shadow-lg tracking-wide;
+  }
+
+  .btn-primary {
+    @apply btn-door;
+  }
+
+  .btn-ghost {
+    @apply btn-door-alt;
+  }
+
+  /* Standard section container */
+  .section-container {
+    @apply max-w-5xl mx-auto px-6 sm:px-8;
+  }
+
+  .section-label {
+    @apply text-xs font-mono uppercase tracking-[0.2em] text-zinc-400 mb-4 inline-block font-bold;
+  }
+
+  .section-heading {
+    @apply text-4xl sm:text-6xl font-bold text-white tracking-tight leading-[1.1];
+  }
+
+  /* High-end Bento Glass Cards */
+  .bento-card {
+    @apply relative bg-[#111115]/90 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-white/25 hover:shadow-2xl overflow-hidden;
+  }
+
+  .bento-card-inner {
+    @apply bg-[#08080a] border border-white/10 rounded-2xl p-4 sm:p-6 font-mono text-xs shadow-inner;
+  }
+}
