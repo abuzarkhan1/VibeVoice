@@ -1,7 +1,8 @@
 {
   "name": "vibevoice",
   "version": "0.1.0",
-  "description": "Voice dictation, text-to-speech, and AI prompt for macOS",
+  "description": "Voice dictation, text-to-speech, and AI prompt desktop application (macOS, Windows, Linux)",
+  "author": "Abuzar Khan <abuzar@example.com>",
   "main": "./out/main/index.js",
   "private": true,
   "scripts": {
