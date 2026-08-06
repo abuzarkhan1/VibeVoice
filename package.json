@@ -15,8 +15,15 @@
     "dev": "pnpm build:native && electron-vite dev",
     "build": "pnpm build:native && pnpm typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
-    "build:mac": "pnpm build && electron-builder --mac"
+    "build:mac": "pnpm build && electron-builder --mac",
+    "build:win": "pnpm build && electron-builder --win",
+    "build:linux": "pnpm build && electron-builder --linux",
+    "build:all": "pnpm build && electron-builder -mwl"
   },
+  "onlyBuiltDependencies": [
+    "electron",
+    "esbuild"
+  ],
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
     "@electron-toolkit/utils": "^4.0.0",
@@ -55,11 +62,5 @@
     "react-dom": "^19.2.1",
     "typescript": "^5.9.3",
     "vite": "^7.2.6"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "electron",
-      "esbuild"
-    ]
   }
 }

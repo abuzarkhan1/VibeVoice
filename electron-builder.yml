@@ -12,6 +12,15 @@ files:
 asarUnpack:
   - resources/**
 mac:
+  target: [dmg, zip]
   category: public.app-category.productivity
   notarize: false
+win:
+  target: [nsis, portable]
+  icon: build/icon.ico
+linux:
+  target: [AppImage, deb]
+  icon: build/icons/
+  category: Utility
 npmRebuild: false
+
