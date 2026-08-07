@@ -1,0 +1,21 @@
+# VibeVoice
+
+> High-Performance Voice Dictation, Synchronized Text-To-Speech & Global AI Launcher for macOS, Windows, and Linux.
+
+## Overview
+VibeVoice is an open-source (MIT licensed) native desktop application built for sub-100ms productivity workflows. It provides voice dictation, synchronized audio-to-text reading, an inline AI prompt launcher, and OS hardware-backed credential storage.
+
+## Core Capabilities
+- **Sub-100ms Voice Dictation**: Streams audio via PCM ringbuffers to local Whisper (whisper.cpp), Deepgram, or native C++ inference engines. Triggered globally holding Fn.
+- **Synchronized Text-To-Speech**: Highlight text in any application and hear it read with word-by-word visual highlighting. Powered by OpenAI Neural & ElevenLabs.
+- **Global AI Prompt Launcher**: Press `⌘+Shift+P` (or `Ctrl+Shift+P`) anywhere to invoke an AI command bar above active windows. Works with Claude 3.5 Sonnet, GPT-4o, Llama 3, and local Ollama models.
+- **OS Keychain Vault**: API keys are sealed directly inside native hardware vaults (macOS Keychain SecItem, Windows DPAPI, Linux Secret Service). Zero data stored on external servers.
+
+## Tech Stack
+- Frontend/Web: Vite, React, TypeScript, Tailwind CSS, Space Grotesk font family
+- Desktop Engine: Cross-platform native architecture (Swift on macOS, C# on Windows, C shared objects on Linux)
+
+## Repository & Open Source
+- Source Code: https://github.com/abuzarkhan1/VibeVoice
+- License: MIT
+- Developer: Abuzar Khan (https://github.com/abuzarkhan1)

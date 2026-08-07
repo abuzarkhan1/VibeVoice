@@ -2,39 +2,36 @@
 
 import React, { useEffect, useRef } from 'react';
 
-const features = [
-  {
-    num: '01',
-    title: 'Sub-100ms Voice Dictation',
-    desc: 'Hold Fn. Speak. Text appears in any app instantly.',
-  },
-  {
-    num: '02',
-    title: 'Synchronized Text-To-Speech',
-    desc: 'Highlight text anywhere. Hear it read with word-by-word sync.',
-  },
-  {
-    num: '03',
-    title: 'Global AI Prompt Launcher',
-    desc: '⌘+Shift+P anywhere. Claude, GPT-4o, Llama — your choice.',
-  },
+interface FeatureItem {
+  num: string;
+  titlePrefix: string;
+  titleAccent: string;
+  desc: string;
+  tag: string;
+}
+
+const features: FeatureItem[] = [
   {
     num: '04',
-    title: 'Hardware Keychain Security',
-    desc: 'Keys encrypted in your OS vault. Zero cloud storage.',
+    titlePrefix: 'Hardware Keychain ',
+    titleAccent: 'Security',
+    desc: 'API keys encrypted in your OS hardware vault — macOS SecItem, Windows DPAPI, Linux Secret Service. Zero cloud storage.',
+    tag: 'Secure',
   },
   {
     num: '05',
-    title: 'Cross-Platform Native Engine',
-    desc: 'Mac, Windows, Linux. Native C++ / Swift / C# per platform.',
+    titlePrefix: 'Cross-Platform ',
+    titleAccent: 'Native Engine',
+    desc: 'One codebase, three native runtimes. Swift on macOS, C# on Windows, C shared object on Linux — no Electron overhead.',
+    tag: 'Native',
   },
 ];
 
 export const FeaturesSection: React.FC = () => {
-  const listRef = useRef<HTMLOListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const items = listRef.current?.querySelectorAll<HTMLLIElement>('[data-feature]');
+    const items = listRef.current?.querySelectorAll<HTMLElement>('[data-feature]');
     if (!items) return;
 
     const observer = new IntersectionObserver(
@@ -50,10 +47,10 @@ export const FeaturesSection: React.FC = () => {
       { threshold: 0.15 }
     );
 
-    items.forEach((item) => {
+    items.forEach((item, i) => {
       item.style.opacity = '0';
-      item.style.transform = 'translateY(24px)';
-      item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      item.style.transform = 'translateY(32px)';
+      item.style.transition = `opacity 0.5s ease ${i * 100}ms, transform 0.5s ease ${i * 100}ms`;
       observer.observe(item);
     });
 
@@ -61,44 +58,205 @@ export const FeaturesSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="what" className="bg-[#0a0a0d] py-28 border-t border-white/[0.06]">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8">
-        {/* Section label */}
-        <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-6">
-          What it does
-        </p>
+    <section
+      id="features-extended"
+      className="
+        relative
+        overflow-hidden
+        bg-[#08080a]
+        pb-28
+        sm:pb-36
+        border-b
+        border-white/[0.06]
+      "
+    >
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="relative" ref={listRef}>
+          <div
+            aria-hidden="true"
+            className="
+              absolute
+              left-[23px]
+              sm:left-[31px]
+              top-8
+              bottom-8
+              w-px
+              bg-gradient-to-b
+              from-white/[0.08]
+              via-white/[0.04]
+              to-transparent
+            "
+          />
 
-        {/* Heading */}
-        <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-16">
-          One key. Anywhere. Instant.
-        </h2>
+          <div className="space-y-16 sm:space-y-24">
+            {features.map((item) => (
+              <article
+                key={item.num}
+                data-feature
+                className="group relative grid grid-cols-[48px_1fr] sm:grid-cols-[64px_1fr] gap-6 sm:gap-10"
+              >
+                <div className="relative z-10">
+                  <div
+                    className="
+                      w-12
+                      h-12
+                      sm:w-16
+                      sm:h-16
+                      rounded-full
+                      bg-[#08080a]
+                      border
+                      border-white/[0.12]
+                      group-hover:border-white/30
+                      flex
+                      items-center
+                      justify-center
+                      transition-all
+                      duration-300
+                    "
+                  >
+                    <span
+                      className="
+                        text-xs
+                        sm:text-sm
+                        font-extrabold
+                        text-zinc-500
+                        group-hover:text-white
+                        transition-colors
+                      "
+                      style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+                    >
+                      {item.num}
+                    </span>
+                  </div>
 
-        {/* Numbered list */}
-        <ol ref={listRef} className="space-y-0">
-          {features.map((f, i) => (
-            <li
-              key={f.num}
-              data-feature
-              className="flex gap-8 py-8 border-t border-white/[0.06] last:border-b last:border-white/[0.06]"
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              {/* Number */}
-              <span className="w-8 shrink-0 font-mono text-sm text-zinc-600 pt-0.5 select-none">
-                {f.num}
-              </span>
+                  <div
+                    aria-hidden="true"
+                    className="
+                      absolute
+                      inset-0
+                      rounded-full
+                      bg-white/[0.04]
+                      blur-xl
+                      opacity-0
+                      group-hover:opacity-100
+                      transition-opacity
+                      duration-300
+                      -z-10
+                    "
+                  />
+                </div>
 
-              {/* Content */}
-              <div>
-                <p className="font-semibold text-white text-base leading-snug mb-1">
-                  {f.title}
-                </p>
-                <p className="text-zinc-500 text-sm leading-relaxed">
-                  {f.desc}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
+                <div className="pt-1 sm:pt-2 max-w-3xl">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span
+                      className="
+                        h-px
+                        w-6
+                        bg-white/20
+                        group-hover:w-10
+                        group-hover:bg-white/50
+                        transition-all
+                        duration-300
+                      "
+                    />
+
+                    <span
+                      className="
+                        font-mono
+                        text-xs
+                        font-bold
+                        uppercase
+                        tracking-widest
+                        text-zinc-500
+                        group-hover:text-zinc-400
+                        transition-colors
+                      "
+                    >
+                      {item.tag}
+                    </span>
+                  </div>
+
+                  <h3
+                    className="
+                      text-2xl
+                      sm:text-4xl
+                      md:text-5xl
+                      font-extrabold
+                      tracking-tight
+                      leading-[1.05]
+                      text-white
+                    "
+                    style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+                  >
+                    {item.titlePrefix}
+                    <span className="text-zinc-400 font-normal">
+                      {item.titleAccent}
+                    </span>
+                  </h3>
+
+                  <p
+                    className="
+                      mt-5
+                      text-sm
+                      sm:text-base
+                      md:text-lg
+                      leading-relaxed
+                      text-zinc-400
+                      font-normal
+                      max-w-2xl
+                    "
+                  >
+                    {item.desc}
+                  </p>
+
+                  <div className="mt-7 flex items-center gap-3">
+                    <span
+                      className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        font-mono
+                        text-xs
+                        font-bold
+                        uppercase
+                        tracking-widest
+                        text-zinc-500
+                      "
+                    >
+                      <span
+                        className="
+                          w-1.5
+                          h-1.5
+                          rounded-full
+                          bg-zinc-500
+                          group-hover:bg-white
+                          group-hover:shadow-[0_0_8px_rgba(255,255,255,0.7)]
+                          transition-all
+                        "
+                      />
+                      Native
+                    </span>
+
+                    <span className="text-zinc-700 font-mono text-xs">/</span>
+
+                    <span
+                      className="
+                        font-mono
+                        text-xs
+                        font-bold
+                        uppercase
+                        tracking-widest
+                        text-zinc-500
+                      "
+                    >
+                      {item.num === '04' ? 'Hardware-Backed' : 'Cross-Platform'}
+                    </span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

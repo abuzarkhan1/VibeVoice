@@ -20,7 +20,6 @@ export const Footer: React.FC = () => {
   const footerRef = useRef<HTMLElement>(null);
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
 
-  /* Interactive Mouse-Spotlight Tracking for Giant Brand Text */
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!footerRef.current) return;
@@ -40,25 +39,31 @@ export const Footer: React.FC = () => {
       className="border-t border-white/[0.08] pt-16 pb-12 bg-[#08080a] text-white relative overflow-hidden select-none"
     >
       <div className="max-w-6xl mx-auto px-6 sm:px-8 relative z-10">
-        
-        {/* Giant Animated Brand Typography Display */}
         <div className="relative flex items-center justify-center my-8 py-6 overflow-hidden pointer-events-none">
-          <h1
+          <div
             className="text-6xl sm:text-9xl lg:text-[13rem] font-extrabold tracking-tighter text-transparent bg-clip-text leading-none transition-all duration-300 drop-shadow-2xl"
             style={{
+              fontFamily: "'Space Grotesk', system-ui, sans-serif",
               backgroundImage: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.3) 55%, rgba(255,255,255,0.08) 100%)`,
               WebkitBackgroundClip: 'text',
               textShadow: '0 0 50px rgba(255,255,255,0.15)',
             }}
           >
             VIBEVOICE
-          </h1>
+          </div>
         </div>
 
-        {/* Clean 1-Line Footer Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-sm font-mono text-zinc-400 pt-8 border-t border-white/[0.08]">
-          <div className="font-semibold text-zinc-300">
-            © 2026 Abuzar Khan · Vibe Productivity Suite
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-white/[0.08]">
+          <div className="flex items-center gap-5">
+            <div className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-500">
+              © 2026 Abuzar Khan · Vibe Productivity Suite
+            </div>
+            <a href="/privacy" className="font-mono text-xs uppercase tracking-widest text-zinc-600 hover:text-zinc-400 transition-colors">
+              Privacy
+            </a>
+            <a href="/terms" className="font-mono text-xs uppercase tracking-widest text-zinc-600 hover:text-zinc-400 transition-colors">
+              Terms
+            </a>
           </div>
 
           <div className="flex items-center gap-6">
@@ -66,7 +71,8 @@ export const Footer: React.FC = () => {
               href="https://github.com/abuzarkhan1/VibeVoice"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-white transition-colors flex items-center gap-2 font-bold text-white"
+              className="hover:text-zinc-300 transition-colors flex items-center gap-2 font-extrabold text-base sm:text-lg text-white tracking-tighter"
+              style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
             >
               <GitHubIcon className="w-4 h-4 text-white" />
               <span>GitHub</span>
@@ -75,19 +81,19 @@ export const Footer: React.FC = () => {
               href="https://twitter.com/abuzarkhan"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-white transition-colors flex items-center gap-2 font-bold text-white"
+              className="hover:text-zinc-300 transition-colors flex items-center gap-2 font-extrabold text-base sm:text-lg text-white tracking-tighter"
+              style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
             >
               <TwitterIcon className="w-4 h-4 text-white" />
               <span>X / Twitter</span>
             </a>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+          <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-zinc-500">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-zinc-300 font-semibold">Systems Operational</span>
+            <span>Systems Operational</span>
           </div>
         </div>
-
       </div>
     </footer>
   );

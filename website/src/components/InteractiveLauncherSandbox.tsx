@@ -106,8 +106,29 @@ export const InteractiveLauncherSandbox: React.FC = () => {
     }, 15);
   };
 
-  const handleCopyOutput = () => {
-    navigator.clipboard.writeText(activePreset.polishedOutput);
+  const handleCopyOutput = async () => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(activePreset.polishedOutput);
+      } else {
+        throw new Error('Clipboard API unavailable');
+      }
+    } catch (err) {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = activePreset.polishedOutput;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      } catch (fallbackErr) {
+        console.error('Fallback copy failed', fallbackErr);
+      }
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -115,21 +136,19 @@ export const InteractiveLauncherSandbox: React.FC = () => {
   return (
     <section id="sandbox" className="py-32 bg-[#0a0a0d] text-white relative">
       <div className="max-w-4xl mx-auto px-6 sm:px-8">
-        
-        {/* Section Header */}
         <div className="mb-12">
-          <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-6">
+          <p className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-400 mb-6">
             Interactive Demo
           </p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-            Experience the launcher live.
+          <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.08] mb-4">
+            Experience the launcher{' '}
+            <span className="text-zinc-400 font-normal">live.</span>
           </h2>
           <p className="text-zinc-400 text-lg max-w-2xl">
             Simulate real-time voice streaming, instant AI cleanup, and native cursor insertion right here.
           </p>
         </div>
 
-        {/* Preset Selector Tabs */}
         <div className="flex flex-wrap items-center gap-2 mb-8">
           {PRESETS.map((preset) => {
             const isActive = activePreset.id === preset.id;
@@ -137,9 +156,9 @@ export const InteractiveLauncherSandbox: React.FC = () => {
               <button
                 key={preset.id}
                 onClick={() => handleSelectPreset(preset)}
-                className={`px-4 py-2 rounded-full font-medium text-sm transition-all flex items-center gap-2 ${
+                className={`px-4 py-2 rounded-full font-space font-extrabold text-xs tracking-tight transition-all flex items-center gap-2 cursor-pointer ${
                   isActive
-                    ? 'bg-white text-black font-semibold shadow'
+                    ? 'bg-white text-black shadow'
                     : 'bg-zinc-900 border border-white/[0.08] text-zinc-400 hover:text-white hover:border-white/20'
                 }`}
               >
@@ -150,11 +169,8 @@ export const InteractiveLauncherSandbox: React.FC = () => {
           })}
         </div>
 
-        {/* VibeVoice Floating Launcher Mockup Window */}
         <div className="bg-[#111113] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl">
-          
-          {/* Mock Window Header */}
-          <div className="px-6 py-4 border-b border-white/[0.06] flex items-center justify-between text-xs text-zinc-400 font-mono">
+          <div className="px-6 py-4 border-b border-white/[0.06] flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>VibeVoice Launcher</span>
@@ -162,16 +178,13 @@ export const InteractiveLauncherSandbox: React.FC = () => {
             <span>Hotkey: ⌘+Shift+P</span>
           </div>
 
-          {/* Body */}
           <div className="p-6 space-y-6">
-            
-            {/* Dictation Input Area */}
             <div>
-              <div className="flex items-center justify-between mb-2 text-xs text-zinc-400">
+              <div className="flex items-center justify-between mb-2 font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">
                 <span>Spoken Input Stream</span>
-                <span className="font-mono text-zinc-500">Fn Key Hold</span>
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-500">Fn Key Hold</span>
               </div>
-              <div className="p-4 bg-[#0a0a0d] border border-white/[0.06] rounded-xl text-sm font-mono text-zinc-300 min-h-[72px] flex items-center justify-between gap-4">
+              <div className="p-4 bg-[#0a0a0d] border border-white/[0.06] rounded-xl font-mono text-xs font-bold text-zinc-300 min-h-[72px] flex items-center justify-between gap-4">
                 <span>{displayedInput || <span className="text-zinc-600">Click a preset above to simulate voice dictation...</span>}</span>
                 <div className="flex items-center gap-1 shrink-0 h-6">
                   {waveHeights.map((h, i) => (
@@ -187,9 +200,8 @@ export const InteractiveLauncherSandbox: React.FC = () => {
               </div>
             </div>
 
-            {/* AI Model Output */}
             {isProcessing && (
-              <div className="p-4 bg-[#0a0a0d] border border-white/[0.06] rounded-xl text-xs font-mono text-zinc-400 flex items-center gap-2">
+              <div className="p-4 bg-[#0a0a0d] border border-white/[0.06] rounded-xl font-mono text-xs font-bold text-zinc-400 flex items-center gap-2">
                 <RefreshCw className="w-4 h-4 animate-spin text-white" />
                 <span>Processing through {activePreset.provider}...</span>
               </div>
@@ -197,28 +209,25 @@ export const InteractiveLauncherSandbox: React.FC = () => {
 
             {showOutput && (
               <div>
-                <div className="flex items-center justify-between mb-2 text-xs text-zinc-400">
-                  <span className="flex items-center gap-1.5 text-white font-medium">
+                <div className="flex items-center justify-between mb-2 font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">
+                  <span className="flex items-center gap-1.5 font-space font-extrabold tracking-tight text-white text-xs">
                     <Sparkles className="w-3.5 h-3.5" /> Cleaned Output ({activePreset.provider})
                   </span>
                   <button
                     onClick={handleCopyOutput}
-                    className="flex items-center gap-1 text-xs text-zinc-400 hover:text-white transition-colors"
+                    className="flex items-center gap-1 font-space font-extrabold tracking-tight text-xs text-zinc-400 hover:text-white transition-colors cursor-pointer"
                   >
                     {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copied ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
-                <pre className="p-4 bg-[#0a0a0d] border border-white/[0.06] rounded-xl text-sm font-mono text-white whitespace-pre-wrap leading-relaxed">
+                <pre className="p-4 bg-[#0a0a0d] border border-white/[0.06] rounded-xl font-mono text-xs font-bold text-white whitespace-pre-wrap leading-relaxed">
                   {activePreset.polishedOutput}
                 </pre>
               </div>
             )}
-
           </div>
-
         </div>
-
       </div>
     </section>
   );

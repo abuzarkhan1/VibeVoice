@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const NAV_LINKS = [
   { label: 'What we build', href: '#what' },
@@ -16,6 +16,8 @@ export interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenDownloadModal }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const mobileNavRef = useRef<HTMLElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 15);
@@ -30,6 +32,56 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDownloadModal }) => {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        hamburgerRef.current?.focus();
+      }
+    };
+    if (menuOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const nav = mobileNavRef.current;
+    if (!nav) return;
+
+    const focusable = Array.from(
+      nav.querySelectorAll<HTMLElement>('a, button')
+    ).filter((el) => !el.hasAttribute('disabled'));
+
+    if (focusable.length === 0) return;
+
+    focusable[0].focus();
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    nav.addEventListener('keydown', handleTab);
+    return () => nav.removeEventListener('keydown', handleTab);
+  }, [menuOpen]);
+
   const handleDownloadClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (onOpenDownloadModal) {
       e.preventDefault();
@@ -39,53 +91,58 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDownloadModal }) => {
 
   return (
     <>
-      {/* Full-Width Clean Obsidian Header */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 border-b ${
+        role="banner"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
           scrolled
-            ? 'bg-[#08080a]/90 backdrop-blur-xl border-white/10 shadow-2xl py-3.5'
-            : 'bg-[#08080a]/60 backdrop-blur-md border-white/[0.06] py-4'
+            ? 'bg-[#08080a] backdrop-blur-2xl border-white/[0.08] py-4'
+            : 'bg-[#08080a]/80 backdrop-blur-xl border-transparent py-5'
         }`}
+        style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
       >
         <div className="max-w-6xl mx-auto px-6 sm:px-8 flex items-center justify-between h-12">
-          
-          {/* Logo Wordmark — Pure Clean VibeVoice (No Version Tag) */}
           <a
             href="#"
-            className="font-extrabold text-white text-xl sm:text-2xl tracking-tight select-none flex items-center gap-2 hover:opacity-90 transition-opacity"
+            className="text-2xl sm:text-3xl font-black text-white tracking-tight select-none flex items-center gap-1 hover:opacity-90 transition-opacity"
+            style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
           >
-            <span>VibeVoice</span>
+            <span className="font-black tracking-tight text-white">Vibe</span>
+            <em className="italic font-serif font-bold text-zinc-100 text-2xl sm:text-3xl" style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}>
+              Voice
+            </em>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-9">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-10">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-bold text-zinc-300 hover:text-white transition-colors duration-150 tracking-wide"
+                className="text-base font-black tracking-tight text-white hover:text-zinc-300 transition-colors duration-150"
+                style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          {/* Desktop Primary Download CTA Button */}
           <div className="hidden md:flex items-center">
             <a
               href="#downloads"
               onClick={handleDownloadClick}
-              className="text-sm font-extrabold px-6 py-2.5 rounded-full bg-white text-black hover:bg-zinc-200 transition-all duration-200 shadow-xl active:scale-95 inline-flex items-center justify-center cursor-pointer select-none"
+              className="text-base font-black tracking-tight px-7 py-3 rounded-full bg-white text-black hover:bg-zinc-200 transition-all duration-200 shadow-2xl shadow-white/30 active:scale-[0.98] inline-flex items-center justify-center cursor-pointer select-none border-2 border-white"
+              style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
             >
               Download
             </a>
           </div>
 
-          {/* Mobile Hamburger Toggle */}
           <button
-            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5"
+            ref={hamburgerRef}
+            className="md:hidden flex flex-col justify-center items-center w-11 h-11 min-w-[44px] min-h-[44px] p-2 gap-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
           >
             <span
               className={`block h-0.5 w-6 bg-white transition-all duration-200 origin-center ${
@@ -106,14 +163,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDownloadModal }) => {
         </div>
       </header>
 
-      {/* Mobile Menu Drawer */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#08080a]/95 backdrop-blur-3xl flex flex-col justify-center items-center gap-8 md:hidden px-6">
+        <nav
+          id="mobile-nav"
+          ref={mobileNavRef}
+          aria-label="Mobile navigation"
+          className="fixed inset-0 z-40 bg-[#08080a]/98 backdrop-blur-3xl flex flex-col justify-center items-center gap-8 md:hidden px-6"
+          style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+        >
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-2xl font-bold text-white hover:text-zinc-300 transition-colors"
+              className="text-3xl font-black tracking-tight text-white hover:text-zinc-300 transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -121,7 +183,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDownloadModal }) => {
           ))}
           <a
             href="#downloads"
-            className="text-base font-extrabold px-8 py-3.5 rounded-full bg-white text-black hover:bg-zinc-200 transition-all mt-4 w-full text-center shadow-2xl"
+            className="text-lg font-black tracking-tight px-8 py-4 rounded-full bg-white text-black hover:bg-zinc-200 transition-all mt-4 w-full text-center shadow-2xl active:scale-[0.98] border-2 border-white"
             onClick={(e) => {
               setMenuOpen(false);
               handleDownloadClick(e);
@@ -129,7 +191,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDownloadModal }) => {
           >
             Download VibeVoice
           </a>
-        </div>
+        </nav>
       )}
     </>
   );

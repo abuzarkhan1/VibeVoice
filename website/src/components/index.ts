@@ -1,8 +1,18 @@
 export { Navbar } from './Navbar';
 export { HeroSection } from './HeroSection';
+export { StatsBar } from './StatsBar';
 export { WhatWeBuildSection } from './WhatWeBuildSection';
+export { FeaturesSection } from './FeaturesSection';
+export { PricingSection } from './PricingSection';
+export { ChangelogSection } from './ChangelogSection';
 export { InsideAppSection } from './InsideAppSection';
+export { ArchitectureShowcase } from './ArchitectureShowcase';
 export { OSDownloadSection } from './OSDownloadSection';
+export { CreatorSection } from './CreatorSection';
 export { FAQSection } from './FAQSection';
 export { Footer } from './Footer';
 export { DownloadModal } from './DownloadModal';
+export { NotFoundPage } from './NotFoundPage';
+export { ToastProvider, useToast } from './Toast';
+export { PrivacyPage } from './PrivacyPage';
+export { TermsPage } from './TermsPage';

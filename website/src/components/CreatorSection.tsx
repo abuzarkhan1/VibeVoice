@@ -1,58 +1,379 @@
 'use client';
 
 import React from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { GithubIcon as Github } from './icons';
 
 export const CreatorSection: React.FC = () => {
   return (
-    <section id="creator" className="bg-[#0a0a0d] py-32 border-t border-white/[0.06]">
-      <div className="max-w-3xl mx-auto px-6 sm:px-8">
-        
-        {/* Section label */}
-        <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-6">
-          Built in the Open
-        </p>
+    <section
+      id="creator"
+      className="
+        relative
+        overflow-hidden
+        bg-[#08080a]
+        py-32
+        sm:py-40
+        border-t
+        border-white/[0.06]
+      "
+    >
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          top-[-250px]
+          right-[-150px]
+          w-[650px]
+          h-[650px]
+          rounded-full
+          bg-white/[0.025]
+          blur-[120px]
+        "
+      />
 
-        {/* Heading */}
-        <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-8">
-          Created by Abuzar Khan.
-        </h2>
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="flex items-center gap-4 mb-16">
+          <span
+            className="
+              font-mono
+              text-xs
+              font-bold
+              uppercase
+              tracking-widest
+              text-zinc-500
+            "
+          >
+            Built in the Open
+          </span>
 
-        <p className="text-zinc-400 text-lg leading-relaxed mb-12">
-          VibeVoice is an independent open-source software project built with precision native engineering for macOS, Windows, and Linux. Part of the Vibe Productivity Suite.
-        </p>
+          <span className="h-px w-16 bg-white/[0.1]" />
 
-        {/* Suite Showcase Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-          <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-2xl">
-            <div className="text-xs font-mono text-zinc-500 uppercase mb-2">01 · Voice AI</div>
-            <h3 className="text-lg font-bold text-white mb-2">VibeVoice</h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Sub-100ms voice dictation, synchronized text-to-speech, and floating AI prompt bar across all desktop OS.
+          <span
+            className="
+              font-mono
+              text-xs
+              font-bold
+              uppercase
+              tracking-widest
+              text-zinc-500
+            "
+          >
+            Vibe Productivity Suite
+          </span>
+        </div>
+
+        <div
+          className="
+            grid
+            grid-cols-1
+            lg:grid-cols-[1.25fr_0.75fr]
+            gap-16
+            lg:gap-24
+            items-end
+          "
+        >
+          <div>
+            <p
+              className="
+                text-sm
+                sm:text-base
+                text-zinc-400
+                mb-5
+              "
+            >
+              An independent project by
+            </p>
+
+            <h2
+              className="
+                text-5xl
+                sm:text-7xl
+                md:text-8xl
+                font-extrabold
+                tracking-tighter
+                leading-[0.9]
+                text-white
+              "
+              style={{
+                fontFamily:
+                  "'Space Grotesk', system-ui, sans-serif",
+              }}
+            >
+              Abuzar
+              <br />
+
+              <span className="text-zinc-400 font-normal">
+                Khan.
+              </span>
+            </h2>
+
+            <p
+              className="
+                mt-9
+                max-w-xl
+                text-base
+                sm:text-lg
+                leading-relaxed
+                text-zinc-400
+              "
+            >
+              VibeVoice is built independently with a simple idea:
+              desktop software should feel fast, native, and
+              effortless.
             </p>
           </div>
 
-          <div className="p-6 bg-[#111113] border border-white/[0.06] rounded-2xl">
-            <div className="text-xs font-mono text-zinc-500 uppercase mb-2">02 · Productivity</div>
-            <h3 className="text-lg font-bold text-white mb-2">VibeGrid</h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              High-performance window management and spatial workspace organization for macOS power users.
-            </p>
+          <div className="lg:pb-2">
+            <div
+              className="
+                border-l
+                border-white/[0.1]
+                pl-6
+                sm:pl-8
+              "
+            >
+              <p
+                className="
+                  font-mono
+                  text-xs
+                  font-bold
+                  uppercase
+                  tracking-widest
+                  text-zinc-500
+                  mb-5
+                "
+              >
+                The idea
+              </p>
+
+              <p
+                className="
+                  text-xl
+                  sm:text-2xl
+                  leading-relaxed
+                  tracking-tighter
+                  text-zinc-300
+                "
+              >
+                Your voice should be available
+                <span className="text-white">
+                  {' '}everywhere you work.
+                </span>
+              </p>
+
+              <p
+                className="
+                  mt-5
+                  text-sm
+                  leading-relaxed
+                  text-zinc-400
+                "
+              >
+                No browser tabs. No unnecessary interfaces.
+                Just a native layer between you and your
+                computer.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* GitHub Link */}
-        <a
-          href="https://github.com/abuzarkhan1/VibeVoice"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-zinc-300 transition-colors"
+        <div
+          className="
+            mt-24
+            sm:mt-32
+            py-7
+            border-y
+            border-white/[0.06]
+            flex
+            flex-col
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+            gap-5
+          "
         >
-          <Github className="w-4 h-4 text-white" />
-          <span>Follow project updates on GitHub</span>
-          <span className="font-mono text-zinc-500 text-xs">→</span>
-        </a>
+          <div className="flex items-center gap-4">
+            <span
+              className="
+                font-mono
+                text-xs
+                font-bold
+                uppercase
+                tracking-widest
+                text-zinc-500
+              "
+            >
+              Part of
+            </span>
 
+            <span
+              className="
+                text-lg
+                font-extrabold
+                tracking-tighter
+                text-white
+              "
+              style={{
+                fontFamily:
+                  "'Space Grotesk', system-ui, sans-serif",
+              }}
+            >
+              Vibe
+              <span className="text-zinc-400 font-normal">
+                {' '}Productivity
+              </span>
+            </span>
+
+            <span
+              className="
+                font-mono
+                text-xs
+                font-bold
+                uppercase
+                tracking-widest
+                text-zinc-500
+              "
+            >
+              SUITE
+            </span>
+          </div>
+
+          <div
+            className="
+              flex
+              items-center
+              gap-5
+              font-mono
+              text-xs
+              font-bold
+              uppercase
+              tracking-widest
+              text-zinc-500
+            "
+          >
+            <span>
+              VibeVoice
+            </span>
+
+            <span className="text-zinc-800">
+              /
+            </span>
+
+            <span>
+              VibeGrid
+            </span>
+
+            <span className="text-zinc-800">
+              /
+            </span>
+
+            <span>
+              More to come
+            </span>
+          </div>
+        </div>
+
+        <div
+          className="
+            mt-10
+            flex
+            flex-col
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+            gap-6
+          "
+        >
+          <p
+            className="
+              max-w-md
+              text-xs
+              sm:text-sm
+              leading-relaxed
+              text-zinc-400
+            "
+          >
+            VibeVoice is open source. Follow the development,
+            explore the code, or contribute to the project.
+          </p>
+
+          <a
+            href="https://github.com/abuzarkhan1/VibeVoice"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              group
+              inline-flex
+              items-center
+              justify-center
+              gap-3
+              w-fit
+              px-6
+              py-3.5
+              rounded-full
+              bg-white
+              text-black
+              text-base
+              sm:text-lg
+              font-extrabold
+              hover:bg-zinc-200
+              transition-all
+              duration-200
+              active:scale-[0.98]
+              cursor-pointer
+              shrink-0
+            "
+            style={{
+              fontFamily:
+                "'Space Grotesk', system-ui, sans-serif",
+            }}
+          >
+            <Github
+              className="w-4 h-4 stroke-[2.5]"
+            />
+
+            <span>
+              View on GitHub
+            </span>
+
+            <ArrowUpRight
+              className="
+                w-4
+                h-4
+                stroke-[2.5]
+                transition-transform
+                duration-200
+                group-hover:translate-x-0.5
+                group-hover:-translate-y-0.5
+              "
+            />
+          </a>
+        </div>
+
+        <div
+          className="
+            mt-24
+            flex
+            items-center
+            justify-between
+            font-mono
+            text-xs
+            font-bold
+            uppercase
+            tracking-widest
+            text-zinc-500
+          "
+        >
+          <span>
+            Independent software
+          </span>
+
+          <span>
+            macOS · Windows · Linux
+          </span>
+        </div>
       </div>
     </section>
   );

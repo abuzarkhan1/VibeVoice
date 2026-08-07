@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Apple, MonitorCog, Terminal } from 'lucide-react';
 
 export const ArchitectureShowcase: React.FC = () => {
   const steps = [
@@ -47,56 +48,88 @@ export const ArchitectureShowcase: React.FC = () => {
   ];
 
   return (
-    <section id="inside" className="bg-[#0a0a0d] py-28 border-t border-white/[0.06]">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8">
-        
-        {/* Section label */}
-        <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-6">
+    <section
+      id="architecture"
+      className="relative bg-[#08080a] py-32 border-t border-white/[0.06] overflow-hidden"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full opacity-[0.06] blur-3xl"
+        style={{ background: 'radial-gradient(circle, #ffffff 0%, transparent 70%)' }}
+      />
+
+      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8">
+
+        <p className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-500 mb-6">
           Architecture
         </p>
 
-        {/* Heading */}
-        <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-          Native Abstraction Layer.
+        <h2
+          className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.08] mb-6 max-w-2xl"
+          style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+        >
+          Native{' '}
+          <span className="text-zinc-400 font-normal">abstraction layer.</span>
         </h2>
-        <p className="text-zinc-400 text-lg mb-16 max-w-xl">
-          How VibeVoice bridges OS kernel APIs with cloud and on-device AI.
+        <p className="text-zinc-400 font-normal text-xl leading-relaxed mb-24 max-w-lg">
+          How VibeVoice bridges OS kernel APIs with cloud and on-device AI — five stages, three platforms.
         </p>
 
-        {/* Steps List */}
-        <div className="space-y-12">
-          {steps.map((step) => (
-            <div key={step.num} className="border-b border-white/[0.06] pb-10 last:border-0">
-              <div className="flex items-baseline gap-4 mb-3">
-                <span className="font-mono text-sm text-zinc-600 select-none">
-                  {step.num}
-                </span>
-                <h3 className="text-xl font-bold text-white">
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="absolute left-[19px] top-3 bottom-3 w-px bg-gradient-to-b from-white/25 via-white/10 to-transparent"
+          />
+
+          <div className="space-y-20">
+            {steps.map((step) => (
+              <div key={step.num} className="relative pl-16">
+
+                <div className="absolute left-0 top-0.5 w-10 h-10 rounded-full bg-[#0d0d10] border border-white/20 flex items-center justify-center">
+                  <span
+                    className="text-xs font-extrabold text-white"
+                    style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+                  >
+                    {step.num}
+                  </span>
+                </div>
+
+                <h3
+                  className="text-2xl font-extrabold text-white tracking-tight leading-tight mb-3"
+                  style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+                >
                   {step.title}
                 </h3>
-              </div>
 
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6 ml-9">
-                {step.desc}
-              </p>
+                <p className="text-zinc-400 font-normal text-base leading-relaxed mb-6 max-w-xl">
+                  {step.desc}
+                </p>
 
-              {/* OS Implementation Spec Pill Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 ml-9">
-                <div className="p-3 bg-[#111113] border border-white/[0.06] rounded-xl text-xs font-mono">
-                  <div className="text-zinc-500 mb-1">macOS</div>
-                  <div className="text-zinc-200">{step.mac}</div>
-                </div>
-                <div className="p-3 bg-[#111113] border border-white/[0.06] rounded-xl text-xs font-mono">
-                  <div className="text-zinc-500 mb-1">Windows</div>
-                  <div className="text-zinc-200">{step.win}</div>
-                </div>
-                <div className="p-3 bg-[#111113] border border-white/[0.06] rounded-xl text-xs font-mono">
-                  <div className="text-zinc-500 mb-1">Linux</div>
-                  <div className="text-zinc-200">{step.linux}</div>
+                <div className="flex flex-wrap gap-3">
+                  <div className="inline-flex items-center gap-2.5 pl-2.5 pr-4 py-2 rounded-full bg-zinc-900/90 border border-white/[0.1] hover:border-white/25 hover:bg-zinc-800/80 transition-all duration-200">
+                    <span className="w-6 h-6 rounded-full bg-white/[0.06] flex items-center justify-center shrink-0">
+                      <Apple className="w-3.5 h-3.5 text-zinc-300" strokeWidth={2.5} />
+                    </span>
+                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">{step.mac}</span>
+                  </div>
+
+                  <div className="inline-flex items-center gap-2.5 pl-2.5 pr-4 py-2 rounded-full bg-zinc-900/90 border border-white/[0.1] hover:border-white/25 hover:bg-zinc-800/80 transition-all duration-200">
+                    <span className="w-6 h-6 rounded-full bg-white/[0.06] flex items-center justify-center shrink-0">
+                      <MonitorCog className="w-3.5 h-3.5 text-zinc-300" strokeWidth={2.5} />
+                    </span>
+                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">{step.win}</span>
+                  </div>
+
+                  <div className="inline-flex items-center gap-2.5 pl-2.5 pr-4 py-2 rounded-full bg-zinc-900/90 border border-white/[0.1] hover:border-white/25 hover:bg-zinc-800/80 transition-all duration-200">
+                    <span className="w-6 h-6 rounded-full bg-white/[0.06] flex items-center justify-center shrink-0">
+                      <Terminal className="w-3.5 h-3.5 text-zinc-300" strokeWidth={2.5} />
+                    </span>
+                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">{step.linux}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
       </div>

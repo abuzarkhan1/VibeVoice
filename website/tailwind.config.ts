@@ -3,25 +3,25 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   darkMode: "class",
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         obsidian: {
-          DEFAULT: "#09090b",
+          DEFAULT: "#08080a",
           light: "#121215",
           dark: "#050507",
-          card: "#18181b",
+          card: "#111115",
           border: "rgba(255, 255, 255, 0.08)",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        space: ["var(--font-space)", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        sans: ["'Space Grotesk'", "system-ui", "sans-serif"],
+        space: ["'Space Grotesk'", "system-ui", "sans-serif"],
+        serif: ["'Instrument Serif'", "Georgia", "serif"],
+        mono: ["'JetBrains Mono'", "monospace"],
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",

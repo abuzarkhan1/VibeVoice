@@ -2,38 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design Tokens (Obsidian Dark System) ───────────────────── */
 :root {
   --bg: #08080a;
-  --fg: #f0f0f4;
+  --fg: #ffffff;
   --accent: #ffffff;
-  --muted: #a1a1aa;
-  --border: rgba(255, 255, 255, 0.1);
+  --muted: #d4d4d8;
+  --border: rgba(255, 255, 255, 0.15);
 
   --background: #08080a;
-  --foreground: #f0f0f4;
+  --foreground: #ffffff;
 }
 
-/* ─── Base Layer ────────────────────────────────────────────── */
 @layer base {
   *,
   *::before,
   *::after {
-    border-color: rgba(255, 255, 255, 0.1);
     box-sizing: border-box;
+    border-color: rgba(255, 255, 255, 0.15);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
 
   html {
     scroll-behavior: smooth;
     background-color: #08080a;
-    color: #f0f0f4;
+    color: #ffffff;
   }
 
   body {
     background-color: #08080a;
-    color: #f0f0f4;
+    color: #ffffff;
     font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
@@ -41,18 +40,34 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  ::selection {
-    background-color: rgba(255, 255, 255, 0.25);
-    color: #ffffff;
+  p, span, a, li, label, strong, em, small, blockquote, figcaption {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', system-ui, sans-serif;
-    letter-spacing: -0.025em;
-    font-weight: 700;
+    letter-spacing: -0.04em;
+    font-weight: 800;
   }
 
-  /* Thin zinc scrollbars */
+  button, input, select, textarea {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  code, pre, kbd, samp, .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+  }
+
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -77,16 +92,61 @@
   }
 }
 
-/* ─── Component Layer ───────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1.25rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.8);
+}
+
 @layer components {
-  /* Door buttons (.btn-door) — Bold, high-contrast, non-thin */
   .btn-door {
-    @apply inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-white text-black font-extrabold text-base rounded-full hover:bg-zinc-200 transition-all duration-200 cursor-pointer select-none no-underline active:scale-[0.98] shadow-2xl shadow-white/20 tracking-wide;
+    @apply inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-white text-black font-extrabold text-base rounded-full hover:bg-zinc-200 transition-all duration-200 cursor-pointer select-none no-underline active:scale-[0.98] shadow-2xl shadow-white/30 tracking-tight border-2 border-white;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
 
-  /* Door buttons alt (.btn-door-alt) */
   .btn-door-alt {
-    @apply inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-zinc-900 border border-white/25 text-white font-bold text-base rounded-full hover:bg-zinc-800 hover:border-white/50 transition-all duration-200 cursor-pointer select-none no-underline active:scale-[0.98] shadow-lg tracking-wide;
+    @apply inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-zinc-900 border-2 border-white/30 text-white font-extrabold text-base rounded-full hover:bg-zinc-800 hover:border-white/60 transition-all duration-200 cursor-pointer select-none no-underline active:scale-[0.98] shadow-xl tracking-tight;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
 
   .btn-primary {
@@ -97,25 +157,53 @@
     @apply btn-door-alt;
   }
 
-  /* Standard section container */
   .section-container {
     @apply max-w-5xl mx-auto px-6 sm:px-8;
   }
 
   .section-label {
-    @apply text-xs font-mono uppercase tracking-[0.2em] text-zinc-400 mb-4 inline-block font-bold;
+    @apply text-xs font-mono font-bold uppercase tracking-widest text-zinc-300 mb-4 inline-block;
+  }
+
+  .tech-badge {
+    @apply text-xs font-mono font-bold uppercase tracking-widest text-zinc-400;
+  }
+
+  .badge-mono {
+    @apply text-xs font-mono font-bold uppercase tracking-widest;
   }
 
   .section-heading {
-    @apply text-4xl sm:text-6xl font-bold text-white tracking-tight leading-[1.1];
+    @apply text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.08];
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
 
-  /* High-end Bento Glass Cards */
+  .section-heading-accent,
+  .section-accent {
+    @apply text-zinc-400 font-normal;
+  }
+
   .bento-card {
-    @apply relative bg-[#111115]/90 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-white/25 hover:shadow-2xl overflow-hidden;
+    @apply relative bg-[#111115]/95 border-2 border-white/15 rounded-3xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-white/35 hover:shadow-2xl overflow-hidden;
   }
 
   .bento-card-inner {
-    @apply bg-[#08080a] border border-white/10 rounded-2xl p-4 sm:p-6 font-mono text-xs shadow-inner;
+    @apply bg-[#08080a] border-2 border-white/15 rounded-2xl p-4 sm:p-6 font-mono text-xs shadow-inner;
+  }
+}
+
+@layer utilities {
+  .font-space-extrabold {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    @apply font-extrabold tracking-tight;
+  }
+
+  .hero-heading {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    @apply text-5xl sm:text-7xl md:text-8xl font-extrabold text-white tracking-tight leading-[1.08] max-w-4xl drop-shadow-sm;
+  }
+
+  .hero-accent {
+    @apply text-zinc-400 font-normal;
   }
 }

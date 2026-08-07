@@ -52,7 +52,6 @@ export const SurfaceDictation: React.FC = () => {
 
   const animRef = useRef<number | null>(null);
 
-  // Typewriter effect for live dictation stream
   useEffect(() => {
     if (!isDictating) {
       return;
@@ -78,7 +77,6 @@ export const SurfaceDictation: React.FC = () => {
     return () => clearInterval(interval);
   }, [isDictating, phraseIndex]);
 
-  // Audio waveform animation loop (16 dynamic height bars)
   useEffect(() => {
     if (!isDictating) {
       setBarHeights(Array(16).fill(16));
@@ -116,29 +114,24 @@ export const SurfaceDictation: React.FC = () => {
 
   return (
     <div className="bg-[#111113] border border-white/[0.08] rounded-2xl p-6 sm:p-8 hover:border-white/[0.16] transition-all shadow-xl">
-      {/* Mono label */}
-      <div className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-2 flex items-center justify-between">
+      <div className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2 flex items-center justify-between">
         <span>SURFACE // 01</span>
-        <span className="text-[11px] text-zinc-400 bg-white/[0.04] border border-white/[0.08] px-2.5 py-0.5 rounded-full font-mono flex items-center gap-1.5">
+        <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-200 bg-white/[0.04] border border-white/[0.08] px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
           <span className={`w-1.5 h-1.5 rounded-full ${isDictating ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-600'}`} />
           SYSTEM-WIDE DICTATION
         </span>
       </div>
 
-      {/* Title */}
-      <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">
-        Floating Dictation <span className="font-serif italic font-normal text-zinc-400">HUD</span>
+      <h3 className="text-xl sm:text-2xl font-space font-extrabold tracking-tight text-white mb-2">
+        Floating Dictation <span className="italic font-serif font-normal text-zinc-400">HUD</span>
       </h3>
 
-      {/* Description */}
-      <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+      <p className="text-sm font-bold text-zinc-300 leading-relaxed mb-6">
         Sub-10ms latency voice capture with live RMS audio meter. Instant streaming insertion into VS Code, Slack, Chrome, or any native application.
       </p>
 
-      {/* Interactive Visual Mockup Box */}
       <div className="bg-[#0a0a0d] border border-white/[0.06] rounded-xl p-5 font-mono text-xs flex flex-col gap-4 shadow-2xl">
-        {/* Top bar: Live status indicator */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 text-[11px] text-zinc-400">
+        <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               {isDictating && (
@@ -150,24 +143,23 @@ export const SurfaceDictation: React.FC = () => {
                 }`}
               />
             </span>
-            <span className="font-medium text-white">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-white">
               {isDictating ? 'Listening & Transcribing' : 'Dictation Idle'}
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-emerald-400 font-medium">{selectedEngine.latency}</span>
-            <span className="text-zinc-300 bg-white/[0.06] border border-white/10 px-2 py-0.5 rounded text-[10px] font-mono">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-emerald-400">{selectedEngine.latency}</span>
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-200 bg-white/[0.06] border border-white/10 px-2 py-0.5 rounded">
               Fn Hold
             </span>
           </div>
         </div>
 
-        {/* Audio Waveform: 16 dynamic animated height bars */}
         <div className="bg-white/[0.02] border border-white/[0.04] rounded-lg p-3 flex flex-col gap-2">
-          <div className="flex items-center justify-between text-[10px] text-zinc-500 font-mono">
+          <div className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">
             <span>AUDIO INPUT STREAM (RMS METER)</span>
-            <span className="text-zinc-400">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-300">
               {isDictating ? `${selectedEngine.accuracy} CONFIDENCE` : 'MIC MUTED'}
             </span>
           </div>
@@ -188,16 +180,15 @@ export const SurfaceDictation: React.FC = () => {
           </div>
         </div>
 
-        {/* Live Streaming Output */}
         <div className="bg-black/60 border border-white/[0.08] rounded-lg p-3.5 min-h-[64px] flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[10px] text-zinc-500 mb-1.5 font-sans">
-            <span className="font-mono text-zinc-400">LIVE STREAMING OUTPUT</span>
-            <span className="text-zinc-500 font-mono text-[10px]">Target: Active Cursor</span>
+          <div className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest text-zinc-400 mb-1.5">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-300">LIVE STREAMING OUTPUT</span>
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">Target: Active Cursor</span>
           </div>
 
-          <div className="font-sans text-xs text-white leading-relaxed flex items-center gap-1.5">
-            <span className="text-emerald-400 font-mono select-none">&gt;</span>
-            <span className="text-zinc-200">
+          <div className="font-mono text-xs font-bold text-white leading-relaxed flex items-center gap-1.5">
+            <span className="text-emerald-400 font-mono font-bold select-none">&gt;</span>
+            <span className="text-zinc-100 font-bold">
               {typedText || "Click 'Test Mic Dictation' to start stream..."}
             </span>
             {isDictating && (
@@ -206,12 +197,11 @@ export const SurfaceDictation: React.FC = () => {
           </div>
         </div>
 
-        {/* Controls: "Test Mic Dictation" button + Engine selector */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
           <button
             type="button"
             onClick={toggleDictation}
-            className="bg-white hover:bg-zinc-200 text-black active:scale-[0.98] font-sans font-medium text-xs px-4 py-2 rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0 shadow-md shadow-white/5"
+            className="bg-white hover:bg-zinc-200 text-black active:scale-[0.98] font-space font-extrabold tracking-tight text-xs px-4 py-2 rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0 shadow-md shadow-white/5"
           >
             {isDictating ? (
               <MicOff className="w-3.5 h-3.5 text-zinc-900" />
@@ -221,14 +211,13 @@ export const SurfaceDictation: React.FC = () => {
             <span>{isDictating ? 'Stop Dictation' : 'Test Mic Dictation'}</span>
           </button>
 
-          {/* Engine selector */}
           <div className="flex items-center bg-white/[0.03] border border-white/[0.06] p-1 rounded-lg gap-1 overflow-x-auto">
             {ENGINES.map((engine) => (
               <button
                 key={engine.id}
                 type="button"
                 onClick={() => setSelectedEngine(engine)}
-                className={`px-2.5 py-1.5 rounded-md text-[11px] font-sans font-medium transition-all whitespace-nowrap cursor-pointer ${
+                className={`px-2.5 py-1.5 rounded-md font-space font-extrabold text-xs transition-all whitespace-nowrap cursor-pointer ${
                   selectedEngine.id === engine.id
                     ? 'bg-white/10 text-white border border-white/10 shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="gradient-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0f13"/>
+      <stop offset="100%" stop-color="#08080a"/>
+    </linearGradient>
+    <linearGradient id="gradient-wave" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#gradient-bg)" stroke="#27272a" stroke-width="8"/>
+  <g filter="url(#glow)">
+    <rect x="116" y="216" width="24" height="80" rx="12" fill="url(#gradient-wave)"/>
+    <rect x="164" y="166" width="24" height="180" rx="12" fill="url(#gradient-wave)"/>
+    <rect x="212" y="116" width="24" height="280" rx="12" fill="url(#gradient-wave)"/>
+    <rect x="260" y="86" width="24" height="340" rx="12" fill="url(#gradient-wave)"/>
+    <rect x="308" y="146" width="24" height="220" rx="12" fill="url(#gradient-wave)"/>
+    <rect x="356" y="196" width="24" height="120" rx="12" fill="url(#gradient-wave)"/>
+  </g>
+</svg>

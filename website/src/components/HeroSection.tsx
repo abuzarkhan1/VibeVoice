@@ -7,7 +7,6 @@ interface HeroSectionProps {
   onExplore?: () => void;
 }
 
-// ─── Radar SVG Geometry & Config ──────────────────────────────────────────────
 const CX = 800;
 const CY = 420;
 const RADIUS = 780;
@@ -83,7 +82,6 @@ const RadarSVG: React.FC = () => {
         `}</style>
       </defs>
 
-      {/* Concentric Circles */}
       {CIRCLE_RADII.map((r) => (
         <circle
           key={`circle-${r}`}
@@ -96,7 +94,6 @@ const RadarSVG: React.FC = () => {
         />
       ))}
 
-      {/* Scanning Ring */}
       <circle
         className="radar-scan-ring"
         cx={CX}
@@ -106,7 +103,6 @@ const RadarSVG: React.FC = () => {
         fill="none"
       />
 
-      {/* Radiating Wire Lines */}
       {WIRE_ENDPOINTS.map((pt, i) => (
         <line
           key={`wire-${i}`}
@@ -119,7 +115,6 @@ const RadarSVG: React.FC = () => {
         />
       ))}
 
-      {/* Animated Flow Dots */}
       {WIRE_ENDPOINTS.map((pt, i) => {
         const pathD = `M ${pt.x},${pt.y} L ${CX},${CY}`;
         const dur = 3.6 + (i % 3) * 0.4;
@@ -148,7 +143,6 @@ const RadarSVG: React.FC = () => {
         );
       })}
 
-      {/* Glowing Center */}
       <circle
         className="radar-halo-ring"
         cx={CX}
@@ -196,30 +190,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <section className="min-h-screen relative flex items-center justify-center pt-28 pb-20 bg-[#08080a] overflow-hidden">
-      {/* Background SVG Radar */}
       <RadarSVG />
 
-      {/* Center Main Content Stack */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
-        
-        {/* Main H1 Headline */}
         <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold text-white tracking-tight leading-[1.08] max-w-4xl drop-shadow-sm">
           Voice that speaks{' '}
-          <em className="italic font-serif font-normal text-zinc-300">
+          <span className="text-zinc-400 font-normal">
             everywhere.
-          </em>
+          </span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="mt-8 text-xl sm:text-2xl text-zinc-200 max-w-3xl leading-relaxed font-medium">
+        <p className="mt-8 text-xl sm:text-2xl text-zinc-400 max-w-3xl leading-relaxed font-normal">
           The blazing-fast cross-platform voice launcher for macOS, Windows, and Linux.
         </p>
 
-        {/* Crisp Bold High-Impact Action Buttons */}
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto">
           <button
             onClick={() => onOpenDownloadModal(detectedOSKey)}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-white text-black font-extrabold text-base hover:bg-zinc-200 transition-all duration-200 shadow-2xl shadow-white/20 active:scale-[0.98] cursor-pointer"
+            style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
           >
             <span>Download for {detectedOS}</span>
             <ArrowRight className="w-5 h-5 text-black stroke-[2.5]" />
@@ -227,19 +216,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           <button
             onClick={() => onOpenDownloadModal()}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-zinc-900/90 border border-white/20 text-white font-bold text-base hover:bg-zinc-800 hover:border-white/40 transition-all duration-200 active:scale-[0.98] cursor-pointer shadow-lg"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-zinc-900/90 border border-white/20 text-white font-extrabold text-base hover:bg-zinc-800 hover:border-white/40 transition-all duration-200 active:scale-[0.98] cursor-pointer shadow-lg"
+            style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
           >
             <Download className="w-5 h-5 text-white stroke-[2.5]" />
             <span>Download VibeVoice</span>
           </button>
         </div>
 
-        {/* Subtext Note */}
-        <p className="mt-6 text-xs font-mono font-semibold text-zinc-400 tracking-wider uppercase">
-          Free Forever · Open Source · 100% On-Device Key Vault
-        </p>
-
-        {/* Scroll Hint */}
         <div
           onClick={handleExplore}
           className="mt-16 sm:mt-24 flex flex-col items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-200 select-none cursor-pointer group"
